@@ -9,6 +9,7 @@
 
   <modules>
     <module>order-service</module>
+    <module>common</module>
   </modules>
 
   <properties>
@@ -48,7 +49,12 @@
       <dependency>
         <groupId>xyz.kida</groupId>
         <artifactId>order-messaging</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>xyz.kida</groupId>
+        <artifactId>common-domain</artifactId>
+        <version>${project.version}</version>
       </dependency>
 
       <dependency>

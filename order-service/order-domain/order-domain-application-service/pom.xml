@@ -11,9 +11,6 @@
 
   <artifactId>order-domain-application-service</artifactId>
 
-  <properties>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>xyz.kida</groupId>

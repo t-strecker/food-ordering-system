@@ -3,19 +3,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>order-service</artifactId>
+    <artifactId>common</artifactId>
     <groupId>xyz.kida</groupId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>order-data-access</artifactId>
-
-  <dependencies>
-    <dependency>
-      <groupId>xyz.kida</groupId>
-      <artifactId>order-domain-application-service</artifactId>
-    </dependency>
-  </dependencies>
+  <artifactId>common-domain</artifactId>
 
 </project>
