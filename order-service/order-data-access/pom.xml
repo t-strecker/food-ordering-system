@@ -9,10 +9,16 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>application</artifactId>
+  <artifactId>order-data-access</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>xyz.kida</groupId>
+      <artifactId>order-domain-application-service</artifactId>
+    </dependency>
+  </dependencies>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
 </project>

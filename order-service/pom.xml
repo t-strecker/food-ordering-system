@@ -12,11 +12,11 @@
   <artifactId>order-service</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>domain</module>
-    <module>application</module>
-    <module>data-access</module>
-    <module>messaging</module>
-    <module>container</module>
+    <module>order-domain</module>
+    <module>order-application</module>
+    <module>order-data-access</module>
+    <module>order-messaging</module>
+    <module>order-container</module>
   </modules>
 
   <properties>
