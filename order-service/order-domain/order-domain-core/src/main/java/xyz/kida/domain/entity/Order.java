@@ -1,9 +1,12 @@
 package xyz.kida.domain.entity;
 
 import java.util.List;
+import java.util.UUID;
+import xyz.kida.domain.exception.OrderDomainException;
 import xyz.kida.domain.valueobject.CustomerId;
 import xyz.kida.domain.valueobject.Money;
 import xyz.kida.domain.valueobject.OrderId;
+import xyz.kida.domain.valueobject.OrderItemId;
 import xyz.kida.domain.valueobject.OrderStatus;
 import xyz.kida.domain.valueobject.RestaurantId;
 import xyz.kida.domain.valueobject.StreetAddress;
@@ -19,6 +22,58 @@ public class Order extends AggregateRoot<OrderId> {
   private TrackingId trackingId;
   private OrderStatus orderStatus;
   private List<String> failureMessages;
+
+  public void initialize() {
+    setId(new OrderId(UUID.randomUUID()));
+    trackingId = new TrackingId(UUID.randomUUID());
+    orderStatus = OrderStatus.PENDING;
+    initializeOrderItems();
+  }
+
+  public void validateOrder() {
+    validateInitialOrder();
+    validateTotalPrice();
+    validateItemsPrice();
+  }
+
+  private void initializeOrderItems() {
+    long itemId = 1;
+    for (OrderItem orderItem : items) {
+      orderItem.initialize(super.getId(), new OrderItemId(itemId++));
+    }
+  }
+
+  private void validateInitialOrder() {
+    if (orderStatus != null || getId() != null) {
+      throw new OrderDomainException("Order is not in correct state for initialization");
+    }
+  }
+
+  private void validateTotalPrice() {
+    if (price == null || !price.isGreaterThanZero()) {
+      throw new OrderDomainException("Total price must be greater than zero");
+    }
+  }
+
+  private void validateItemsPrice() {
+    Money orderItemsTotal = items.stream()
+          .map(orderItem -> {
+      validateItemPrice(orderItem);
+      return orderItem.getSubTotal();
+    }).reduce(Money.ZERO, Money::add);
+
+    if (!price.equals(orderItemsTotal)) {
+      throw new OrderDomainException(String.format("Total price: %s is not equal to Order items total: %s",
+            price.getAmount(), orderItemsTotal.getAmount()));
+    }
+  }
+
+  private void validateItemPrice(OrderItem orderItem) {
+    if (!orderItem.isPriceValid()) {
+      throw new OrderDomainException(String.format("Order item price: %s is not valid for product %s",
+            orderItem.getPrice().getAmount(), orderItem.getProduct().getPrice().getAmount()));
+    }
+  }
 
   private Order(Builder builder) {
     super.setId(builder.orderId);
