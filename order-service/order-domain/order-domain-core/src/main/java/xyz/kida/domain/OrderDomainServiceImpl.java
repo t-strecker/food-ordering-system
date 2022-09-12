@@ -3,8 +3,7 @@ package xyz.kida.domain;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import xyz.kida.domain.entity.Order;
 import xyz.kida.domain.entity.Product;
 import xyz.kida.domain.entity.Restaurant;
@@ -13,10 +12,10 @@ import xyz.kida.domain.event.OrderCreatedEvent;
 import xyz.kida.domain.event.OrderPaidEvent;
 import xyz.kida.domain.exception.OrderDomainException;
 
+@Slf4j
 public class OrderDomainServiceImpl implements OrderDomainService {
 
   private static final String UTC = "UTC";
-  Logger log = LoggerFactory.getLogger(OrderDomainServiceImpl.class.getSimpleName());
 
   @Override
   public OrderCreatedEvent validateAndInitiateOrder(Order order, Restaurant restaurant) {
