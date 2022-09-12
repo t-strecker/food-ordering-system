@@ -7,6 +7,7 @@ import xyz.kida.domain.dto.create.CreateOrderCommand;
 import xyz.kida.domain.dto.create.CreateOrderResponse;
 import xyz.kida.domain.dto.create.OrderAddress;
 import xyz.kida.domain.dto.create.OrderItem;
+import xyz.kida.domain.dto.track.TrackOrderResponse;
 import xyz.kida.domain.entity.Order;
 import xyz.kida.domain.entity.Product;
 import xyz.kida.domain.entity.Restaurant;
@@ -68,6 +69,14 @@ public class OrderDataMapper {
     return CreateOrderResponse.builder()
           .orderTrackingId(order.getTrackingId().getValue())
           .orderStatus(order.getOrderStatus())
+          .build();
+  }
+
+  public TrackOrderResponse orderToTrackOrderResponse(Order order) {
+    return TrackOrderResponse.builder()
+          .orderTrackingId(order.getTrackingId().getValue())
+          .orderStatus(order.getOrderStatus())
+          .failureMessages(order.getFailureMessages())
           .build();
   }
 
